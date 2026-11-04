@@ -1,0 +1,36 @@
+====================================================================
+Primary validation: U.S. higher-education panel
+====================================================================
+
+data source: College Scorecard (public data)
+objects: 4785   categories: 3
+composition: [1765, 1586, 1434]
+projection: lon/lat -> local plane in km, longitude scaled by mean latitude
+
+[check] bandwidth 150 km (working value used in Section 5.2)
+  N_B=1765  kappa_B=43.5  rho=0.02752
+  decidable = False
+  failed step: ['step1:n_target']
+  advice: target category has 1765 objects, below the threshold of 3000; widen the time span or the study area. No parameter setting can bypass this.
+
+[bandwidth sweep] is the feasible interval empty?
+  bandwidth  kappa_B    rho        verdict
+  50         10.3       0.00546    undecidable
+  100        23.5       0.01376    undecidable
+  150        43.5       0.02752    undecidable
+  200        68.1       0.04398    undecidable
+  300        119.5      0.07960    undecidable
+  400        189.0      0.13460    undecidable
+  500        274.8      0.18880    undecidable
+
+[conclusion]
+  no bandwidth in 50-500 km satisfies both criteria: the feasible interval is empty.
+  the tool declines to estimate on real public data, which is the behaviour described in Section 4.
+  note: this is insufficient data size, not an insensitive measure; Section 5.3 separates the two.
+
+[link to the paper] largest category = 1765, below the threshold of 3000
+  Section 5.2 reports non-decidability on this basis; the tool returns the same verdict.
+
+====================================================================
+primary validation finished.
+====================================================================

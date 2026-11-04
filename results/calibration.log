@@ -1,0 +1,12 @@
+Calibration of the count threshold (Table 7)
+bandwidth b = 7.0 km, domain = 200 x 200 km, replicates R = 200, seed = 2024
+
+N            kappa_B    SD s (%)   replicates
+4000         14.5       0.16       200       
+5000         18.3       0.12       200       
+6000         21.9       0.10       200       
+7000         25.6       0.09       200       
+7800         28.5       0.07       200       
+9000         33.0       0.07       200       
+
+written: /media/wuxb/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/results/calibration.csv

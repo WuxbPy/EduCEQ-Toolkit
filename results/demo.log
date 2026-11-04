@@ -1,0 +1,33 @@
+==================================================================
+EduCEQ-Toolkit self-check
+==================================================================
+
+[Example 1] Large sample, decidable
+  diagnostics: N_B=4486  kappa_B=33.0  rho=0.00735  decidable=True
+  enrichment matrix:
+        0.9991   1.0009
+        1.0026   0.9974
+  normalisation identity: True (max deviation 1.78e-15)
+  second-order range: 0.9839 - 1.0165, identity=True
+  diagnostics carried by the result: kappa_B=33.0 rho=0.00735
+
+[Example 2] Small sample, undecidable
+  decidable = False
+  failed step: ['step1:n_target']
+  advice: target category has 306 objects, below the threshold of 3000; widen the time span or the study area. No parameter setting can bypass this.
+  no key 'C' in the returned object: True
+  note: the tool returns no estimate here, only the undecidable status.
+
+[Example 3] Synthetic data with known ground truth
+  complete proxy (true lambda=1):  recovered lambda=0.9385  class=Q2:proxy
+  independent effect (true 0):     recovered lambda=0.1223  class=Q2:independent effect
+  the two ground truths are separated, so a second-order term near one should be read as 'not detected' rather than 'absent'.
+
+[Channel report]
+  available: ['conditional_permutation']
+  not implemented: ['asymptotic_null']
+  The asymptotic-null channel described in the paper is part of the general formulation and is not included in the released code; no result in this paper relies on it.
+
+==================================================================
+Self-check finished. All data above are synthetic and reproducible.
+==================================================================
