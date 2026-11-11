@@ -1,0 +1,46 @@
+==================================================================
+EduCEQ-Toolkit self-check
+==================================================================
+
+[Example 1] Large sample, decidable
+  verdict: N_B=4486  n_B=77  S_B=16.9  e_B=33.8  rho_e=0.00754  decidable=True
+  enrichment matrix:
+        0.9977   1.0023
+        1.0015   0.9985
+  normalisation identity: True (max deviation 1.55e-15)
+  second-order range: 0.9902 - 1.0098, identity=True
+  permutation z (A->A): -0.93
+  diagnostics carried by the result: e_B=33.8  rho_e=0.00754
+
+[Example 2] Small sample, undecidable
+  decidable = False
+  failed step: ['step1:n_target']
+  advice: target category has 306 objects, below the threshold of 3000; widen the time span or the study area. No parameter setting can bypass this.
+  no key 'C' in the returned object: True
+  note: the tool returns no estimate here, only the undecidable status.
+
+[Example 2b] Large bandwidth, undecidable
+  decidable = False   failed = ['step3:rho']
+  e_B=3335.6  rho_e=0.7273 (limit 0.01)
+  advice: coverage proportion too high in effective size (0.7273 against 0.0100): narrow the bandwidth.
+
+[Example 2c] A verdict cannot be borrowed
+  without a verdict: ContractRequired
+  with a verdict issued for other data: ContractMismatch
+
+[Example 3] Attenuation with known ground truth (analytic values)
+  complete proxy   (analytic 1.0000): recovered 0.9419  class=Q2:proxy
+  independent      (analytic 0.1409): recovered 0.1397  class=Q2:independent effect
+  X orthogonal to Z (analytic 0.0000): recovered -0.0000  class=Q2:independent effect
+  the middle row is often mislabelled: its population attenuation is
+  0.1409, not zero. The zero-attenuation design is the third row, where
+  X is drawn independently of Z.
+
+[Channel report]
+  available: ['conditional_permutation']
+  not implemented: ['asymptotic_null']
+  The asymptotic-null channel described in the paper is part of the general formulation and is not included in the released code; no result in this paper relies on it.
+
+==================================================================
+Self-check finished. All data above are synthetic and reproducible.
+==================================================================

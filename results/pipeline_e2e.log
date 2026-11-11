@@ -1,0 +1,27 @@
+End-to-end pipeline (Table 12)
+Five stages of Section 3.1 on three datasets, seed = 20261109
+
+dataset  stage                  expected                           observed
+--------------------------------------------------------------------------------------------------------------
+null     1 kernel               sparse, non-negative               nnz=1561846, min w=0.011, rows=9000
+         2 verdict              accept for synthetic, refuse for panel decidable=True  n_B=90 e_B=39.4 rho_e=0.0089
+         3 estimate             C, C1, C2, identity residual       C01=1.0014  C1(01)=0.9950  C2(01)=1.0064  identity=True
+         4 inference            p available, conditional permutation z01=0.64  p01=0.515
+         5 contract             estimate and conditions in one object keys=['C', 'C1', 'C2', 'decidable', 'diagnostics', 'identity_ok']
+
+planted  1 kernel               sparse, non-negative               nnz=1563120, min w=0.011, rows=9000
+         2 verdict              accept for synthetic, refuse for panel decidable=True  n_B=90 e_B=39.4 rho_e=0.0089
+         3 estimate             C, C1, C2, identity residual       C01=1.0108  C1(01)=0.9964  C2(01)=1.0145  identity=True
+         4 inference            p available, conditional permutation z01=4.55  p01=0.005
+         5 contract             estimate and conditions in one object keys=['C', 'C1', 'C2', 'decidable', 'diagnostics', 'identity_ok']
+
+panel    1 kernel               sparse, non-negative               nnz=2466088, min w=0.011, rows=4785
+         2 verdict              accept for synthetic, refuse for panel decidable=False  n_B=162 e_B=76.8 rho_e=0.0481
+         3 estimate             no estimate; status object only    'C' in result: False  failed=['step1:n_target']
+         4 inference            unreachable without a passing verdict ceq_matrix -> ContractRefused
+         5 contract             estimate and conditions in one object keys=['advice', 'decidable', 'diagnostics', 'failed']
+
+The panel row is the point of the table: the estimate does not exist,
+and the only way to obtain one is the private arithmetic of
+estimator._decompose_unchecked, which the paper does not treat as an
+estimate and which no public entry point exposes.

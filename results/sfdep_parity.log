@@ -1,0 +1,18 @@
+Parity with the published colocation-quotient definition
+n = 12000, neighbours per subject k = 80, seed = 20261109
+global shares p = [0.5000, 0.5000] ; verdict decidable = True
+
+pair         reference (formula)         ceq_matrix     abs diff
+----------------------------------------------------------------
+0 -> 0           1.221491666667     1.221491666667    2.220e-16
+0 -> 1           0.778508333333     0.778508333333    1.110e-16
+1 -> 0           0.762895833333     0.762895833333    0.000e+00
+1 -> 1           1.237104166667     1.237104166667    0.000e+00
+
+largest absolute difference: 2.220e-16
+The two agree to machine precision, so the present estimator reduces to
+the standard colocation quotient when the weight is a binary neighbour
+list. The difference from sfdep lies in arbitrary weights, in the
+decomposition, and in the contract, not in the point estimate.
+
+written: /media/wushi/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/results/sfdep_parity.csv

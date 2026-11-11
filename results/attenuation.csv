@@ -1,0 +1,4 @@
+design,analytic,recovered_mean,recovered_sd,bias,replicates,seed,n,r_base_pop
+complete proxy,1.0000,0.9458,0.0424,-0.0542,1000,12345,2000,0.3214
+independent effect,0.1409,0.1412,0.0143,0.0003,1000,12345,2000,0.6675
+X orthogonal to Z,0.0000,0.0000,0.0006,0.0000,1000,12345,2000,0.5735

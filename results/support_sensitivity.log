@@ -1,0 +1,18 @@
+Support-definition sensitivity, College Scorecard panel (N = 4785)
+target category = 0, N_B = 1765, threshold N_B >= 3000
+
+b(km) |     n_B     S_B     e_B |    rho_n    rho_S    rho_e | verdict
+----------------------------------------------------------------------
+   50 |    24.0     6.0    12.2 |  0.01546  0.00546  0.00866 | raw:fail/weighted:fail/ESS:fail
+  100 |    81.0    21.1    39.9 |  0.05120  0.01376  0.02457 | raw:fail/weighted:fail/ESS:fail
+  150 |   162.0    42.5    76.8 |  0.09258  0.02752  0.04813 | raw:fail/weighted:fail/ESS:fail
+  200 |   258.0    68.1   123.5 |  0.15611  0.04398  0.07430 | raw:fail/weighted:fail/ESS:fail
+  300 |   485.0   135.5   241.4 |  0.29049  0.07960  0.14896 | raw:fail/weighted:fail/ESS:fail
+  400 |   729.0   216.3   377.8 |  0.42821  0.13460  0.22933 | raw:fail/weighted:fail/ESS:fail
+  500 |   990.0   308.5   525.1 |  0.54817  0.18880  0.31151 | raw:fail/weighted:fail/ESS:fail
+
+No bandwidth satisfies both criteria under any of the three definitions,
+so the refusal in Section 5.2 does not depend on how support is measured.
+The verdict used by the package is the third definition (effective size).
+
+written: /media/wushi/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/results/support_sensitivity.csv

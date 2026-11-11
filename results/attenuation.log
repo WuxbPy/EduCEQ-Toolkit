@@ -1,0 +1,18 @@
+Attenuation with analytic population values (Table 13)
+n = 2000 per replicate, R = 1000, seed = 12345
+
+design                  analytic  recovered         sd       bias    r_base
+---------------------------------------------------------------------------
+complete proxy            1.0000     0.9458     0.0424    -0.0542     0.321
+independent effect        0.1409     0.1412     0.0143     0.0003     0.667
+X orthogonal to Z         0.0000     0.0000     0.0006     0.0000     0.573
+
+Complete proxy: bias of a rate defined on absolute correlations
+  sigma(r_net) = 0.0218 (empirical over R replicates)
+  |r_base|     = 0.3214 (population value, not a single draw)
+  predicted E[lambda] = 1 - (2/pi)^0.5 * sigma / |r_base| = 0.9459
+  recovered = 0.9458 ; gap = -0.0001 against a Monte Carlo s.e. of 0.0013,
+  so the departure from 1.0000 is definitional, not simulation noise.
+  Section 5.6 of the paper reports it rather than hiding it.
+
+written: /media/wushi/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/results/attenuation.csv

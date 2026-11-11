@@ -1,0 +1,12 @@
+Calibration of the effective-size threshold (Table 10)
+bandwidth b = 5.0 km, domain = 200 x 200 km, replicates R = 200, seed = 2024
+
+N        n_B       S_B       e_B       sd s (%)   s*sqrt(e) 
+4000     34.0      7.4       15.0      0.27       0.0105    
+5000     42.0      9.3       18.8      0.20       0.0086    
+6000     51.0      11.2      22.4      0.17       0.0081    
+7000     59.0      13.1      26.2      0.15       0.0075    
+7800     66.0      14.6      29.2      0.13       0.0070    
+9000     77.0      16.9      33.7      0.12       0.0070    
+
+written: /media/wushi/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/results/calibration.csv
