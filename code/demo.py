@@ -14,7 +14,7 @@ Note on Example 1: the bandwidth is 5 km on a 200 x 200 km domain. Under the
 support measures of version 1.1.0 this gives a median raw support of 77 and an
 effective size of 33.8, i.e. the same configuration that version 1.0.0 described
 as "kappa about 33" is now reported as 77 raw / 33.8 effective. The difference is
-the point of Table 11: the count and the information are not the same quantity.
+the point of Table 14: the count and the information are not the same quantity.
 """
 import numpy as np
 from educeq import kernels, estimator, inference, diagnostics, validity

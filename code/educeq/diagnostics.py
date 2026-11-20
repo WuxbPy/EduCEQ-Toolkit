@@ -24,7 +24,7 @@ sums depends. For weights w_1..w_m the variance of a weighted mean is governed b
 sum(w^2)/sum(w)^2, whose reciprocal is the Kish effective sample size
 e = (sum w)^2 / sum w^2. At a fixed number of non-zero neighbours, e varies by an
 order of magnitude between an indicator kernel and a heavy-tailed one, and the
-standard deviation of the estimate varies with it (Table 11 of the paper). The
+standard deviation of the estimate varies with it (Table 14 of the paper). The
 contract is therefore applied to e, and the raw count and the weight sum are
 reported alongside so that the difference is visible.
 
@@ -160,7 +160,10 @@ def check(W, types, target=None, ess_min=30.0, rho_max=0.01, n_total=None,
     target = int(target)
     a, b = (target, target) if pair is None else (int(pair[0]), int(pair[1]))
 
-    s = support_matrices(W, types)
+    # the matrices must cover the requested pair even when that category has no
+    # objects, otherwise the step-one refusal cannot report its support
+    K = max(int(types.max()) + 1, target + 1, a + 1, b + 1)
+    s = support_matrices(W, types, K=K)
     n_target = int((types == target).sum())
     threshold = int(round(ess_min / rho_max))
     fp = fingerprint(W, types, target=target, pair=(a, b),

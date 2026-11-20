@@ -1,0 +1,92 @@
+csr        b=1.5 binary pi=0.50  n_B=   62.0 e_B=    62.0 rho_e=0.0063  sd=0.00129  sd*sqrt(e)=0.0102  accept
+csr        b=1.5 binary pi=0.20  n_B=   24.0 e_B=    24.0 rho_e=0.0063  sd=0.00237  sd*sqrt(e)=0.0116  refuse
+csr        b=1.5 binary pi=0.05  n_B=    6.0 e_B=     6.0 rho_e=0.0063  sd=0.00516  sd*sqrt(e)=0.0126  refuse
+csr        b=1.5 gauss  pi=0.50  n_B=   62.0 e_B=    27.2 rho_e=0.0028  sd=0.00167  sd*sqrt(e)=0.0087  refuse
+csr        b=1.5 gauss  pi=0.20  n_B=   24.0 e_B=    10.9 rho_e=0.0028  sd=0.00262  sd*sqrt(e)=0.0087  refuse
+csr        b=1.5 gauss  pi=0.05  n_B=    6.0 e_B=     3.1 rho_e=0.0028  sd=0.00516  sd*sqrt(e)=0.0091  refuse
+csr        b=1.5 sharp  pi=0.50  n_B=   62.0 e_B=     7.3 rho_e=0.0007  sd=0.00302  sd*sqrt(e)=0.0081  refuse
+csr        b=1.5 sharp  pi=0.20  n_B=   24.0 e_B=     3.2 rho_e=0.0007  sd=0.00483  sd*sqrt(e)=0.0087  refuse
+csr        b=1.5 sharp  pi=0.05  n_B=    6.0 e_B=     1.3 rho_e=0.0008  sd=0.00825  sd*sqrt(e)=0.0095  refuse
+csr        b=2.0 binary pi=0.50  n_B=  110.0 e_B=   110.0 rho_e=0.0111  sd=0.00112  sd*sqrt(e)=0.0117  refuse
+csr        b=2.0 binary pi=0.20  n_B=   43.0 e_B=    43.0 rho_e=0.0111  sd=0.00222  sd*sqrt(e)=0.0146  refuse
+csr        b=2.0 binary pi=0.05  n_B=   11.0 e_B=    11.0 rho_e=0.0111  sd=0.00496  sd*sqrt(e)=0.0164  refuse
+csr        b=2.0 gauss  pi=0.50  n_B=  110.0 e_B=    48.1 rho_e=0.0049  sd=0.00137  sd*sqrt(e)=0.0095  accept
+csr        b=2.0 gauss  pi=0.20  n_B=   43.0 e_B=    19.1 rho_e=0.0049  sd=0.00223  sd*sqrt(e)=0.0098  refuse
+csr        b=2.0 gauss  pi=0.05  n_B=   11.0 e_B=     5.1 rho_e=0.0049  sd=0.00479  sd*sqrt(e)=0.0108  refuse
+csr        b=2.0 sharp  pi=0.50  n_B=  110.0 e_B=    12.6 rho_e=0.0013  sd=0.00231  sd*sqrt(e)=0.0082  refuse
+csr        b=2.0 sharp  pi=0.20  n_B=   43.0 e_B=     5.3 rho_e=0.0013  sd=0.00368  sd*sqrt(e)=0.0084  refuse
+csr        b=2.0 sharp  pi=0.05  n_B=   11.0 e_B=     1.9 rho_e=0.0013  sd=0.00644  sd*sqrt(e)=0.0089  refuse
+csr        b=2.5 binary pi=0.50  n_B=  171.0 e_B=   171.0 rho_e=0.0173  sd=0.00119  sd*sqrt(e)=0.0156  refuse
+csr        b=2.5 binary pi=0.20  n_B=   68.0 e_B=    68.0 rho_e=0.0173  sd=0.00236  sd*sqrt(e)=0.0195  refuse
+csr        b=2.5 binary pi=0.05  n_B=   17.0 e_B=    17.0 rho_e=0.0173  sd=0.00516  sd*sqrt(e)=0.0213  refuse
+csr        b=2.5 gauss  pi=0.50  n_B=  171.0 e_B=    74.9 rho_e=0.0076  sd=0.00120  sd*sqrt(e)=0.0104  accept
+csr        b=2.5 gauss  pi=0.20  n_B=   68.0 e_B=    29.6 rho_e=0.0076  sd=0.00212  sd*sqrt(e)=0.0115  refuse
+csr        b=2.5 gauss  pi=0.05  n_B=   17.0 e_B=     7.7 rho_e=0.0076  sd=0.00471  sd*sqrt(e)=0.0130  refuse
+csr        b=2.5 sharp  pi=0.50  n_B=  171.0 e_B=    19.4 rho_e=0.0020  sd=0.00191  sd*sqrt(e)=0.0084  refuse
+csr        b=2.5 sharp  pi=0.20  n_B=   68.0 e_B=     7.9 rho_e=0.0020  sd=0.00300  sd*sqrt(e)=0.0084  refuse
+csr        b=2.5 sharp  pi=0.05  n_B=   17.0 e_B=     2.5 rho_e=0.0020  sd=0.00558  sd*sqrt(e)=0.0087  refuse
+clustered  b=1.5 binary pi=0.50  n_B=  101.0 e_B=   101.0 rho_e=0.0101  sd=0.00317  sd*sqrt(e)=0.0319  refuse
+clustered  b=1.5 binary pi=0.20  n_B=   40.0 e_B=    40.0 rho_e=0.0101  sd=0.00561  sd*sqrt(e)=0.0355  refuse
+clustered  b=1.5 binary pi=0.05  n_B=   10.0 e_B=    10.0 rho_e=0.0101  sd=0.01283  sd*sqrt(e)=0.0406  refuse
+clustered  b=1.5 gauss  pi=0.50  n_B=  101.0 e_B=    51.1 rho_e=0.0050  sd=0.00339  sd*sqrt(e)=0.0242  accept
+clustered  b=1.5 gauss  pi=0.20  n_B=   40.0 e_B=    20.2 rho_e=0.0050  sd=0.00625  sd*sqrt(e)=0.0281  refuse
+clustered  b=1.5 gauss  pi=0.05  n_B=   10.0 e_B=     5.3 rho_e=0.0051  sd=0.01359  sd*sqrt(e)=0.0313  refuse
+clustered  b=1.5 sharp  pi=0.50  n_B=  101.0 e_B=    16.3 rho_e=0.0016  sd=0.00411  sd*sqrt(e)=0.0166  refuse
+clustered  b=1.5 sharp  pi=0.20  n_B=   40.0 e_B=     6.7 rho_e=0.0016  sd=0.00765  sd*sqrt(e)=0.0198  refuse
+clustered  b=1.5 sharp  pi=0.05  n_B=   10.0 e_B=     2.1 rho_e=0.0017  sd=0.01499  sd*sqrt(e)=0.0218  refuse
+clustered  b=2.0 binary pi=0.50  n_B=  153.0 e_B=   153.0 rho_e=0.0152  sd=0.00289  sd*sqrt(e)=0.0358  refuse
+clustered  b=2.0 binary pi=0.20  n_B=   60.0 e_B=    60.0 rho_e=0.0152  sd=0.00540  sd*sqrt(e)=0.0418  refuse
+clustered  b=2.0 binary pi=0.05  n_B=   15.0 e_B=    15.0 rho_e=0.0152  sd=0.01197  sd*sqrt(e)=0.0464  refuse
+clustered  b=2.0 gauss  pi=0.50  n_B=  153.0 e_B=    79.4 rho_e=0.0079  sd=0.00320  sd*sqrt(e)=0.0285  accept
+clustered  b=2.0 gauss  pi=0.20  n_B=   60.0 e_B=    31.4 rho_e=0.0079  sd=0.00575  sd*sqrt(e)=0.0322  accept
+clustered  b=2.0 gauss  pi=0.05  n_B=   15.0 e_B=     8.1 rho_e=0.0079  sd=0.01289  sd*sqrt(e)=0.0367  refuse
+clustered  b=2.0 sharp  pi=0.50  n_B=  153.0 e_B=    26.8 rho_e=0.0026  sd=0.00374  sd*sqrt(e)=0.0193  refuse
+clustered  b=2.0 sharp  pi=0.20  n_B=   60.0 e_B=    10.8 rho_e=0.0026  sd=0.00704  sd*sqrt(e)=0.0232  refuse
+clustered  b=2.0 sharp  pi=0.05  n_B=   15.0 e_B=     3.1 rho_e=0.0027  sd=0.01439  sd*sqrt(e)=0.0252  refuse
+clustered  b=2.5 binary pi=0.50  n_B=  210.0 e_B=   210.0 rho_e=0.0209  sd=0.00260  sd*sqrt(e)=0.0377  refuse
+clustered  b=2.5 binary pi=0.20  n_B=   82.0 e_B=    82.0 rho_e=0.0209  sd=0.00497  sd*sqrt(e)=0.0450  refuse
+clustered  b=2.5 binary pi=0.05  n_B=   21.0 e_B=    21.0 rho_e=0.0209  sd=0.01081  sd*sqrt(e)=0.0496  refuse
+clustered  b=2.5 gauss  pi=0.50  n_B=  210.0 e_B=   110.6 rho_e=0.0109  sd=0.00303  sd*sqrt(e)=0.0319  refuse
+clustered  b=2.5 gauss  pi=0.20  n_B=   82.0 e_B=    43.3 rho_e=0.0109  sd=0.00542  sd*sqrt(e)=0.0357  refuse
+clustered  b=2.5 gauss  pi=0.05  n_B=   21.0 e_B=    11.3 rho_e=0.0109  sd=0.01223  sd*sqrt(e)=0.0410  refuse
+clustered  b=2.5 sharp  pi=0.50  n_B=  210.0 e_B=    38.6 rho_e=0.0038  sd=0.00352  sd*sqrt(e)=0.0219  accept
+clustered  b=2.5 sharp  pi=0.20  n_B=   82.0 e_B=    15.5 rho_e=0.0038  sd=0.00658  sd*sqrt(e)=0.0259  refuse
+clustered  b=2.5 sharp  pi=0.05  n_B=   21.0 e_B=     4.2 rho_e=0.0038  sd=0.01394  sd*sqrt(e)=0.0286  refuse
+regular    b=1.5 binary pi=0.50  n_B=   62.0 e_B=    62.0 rho_e=0.0063  sd=0.00124  sd*sqrt(e)=0.0097  accept
+regular    b=1.5 binary pi=0.20  n_B=   24.0 e_B=    24.0 rho_e=0.0063  sd=0.00198  sd*sqrt(e)=0.0097  refuse
+regular    b=1.5 binary pi=0.05  n_B=    6.0 e_B=     6.0 rho_e=0.0063  sd=0.00340  sd*sqrt(e)=0.0083  refuse
+regular    b=1.5 gauss  pi=0.50  n_B=   62.0 e_B=    27.3 rho_e=0.0028  sd=0.00150  sd*sqrt(e)=0.0078  refuse
+regular    b=1.5 gauss  pi=0.20  n_B=   24.0 e_B=    10.9 rho_e=0.0028  sd=0.00196  sd*sqrt(e)=0.0065  refuse
+regular    b=1.5 gauss  pi=0.05  n_B=    6.0 e_B=     3.1 rho_e=0.0028  sd=0.00289  sd*sqrt(e)=0.0051  refuse
+regular    b=1.5 sharp  pi=0.50  n_B=   62.0 e_B=     7.3 rho_e=0.0007  sd=0.00258  sd*sqrt(e)=0.0070  refuse
+regular    b=1.5 sharp  pi=0.20  n_B=   24.0 e_B=     3.2 rho_e=0.0007  sd=0.00311  sd*sqrt(e)=0.0056  refuse
+regular    b=1.5 sharp  pi=0.05  n_B=    6.0 e_B=     1.3 rho_e=0.0007  sd=0.00333  sd*sqrt(e)=0.0038  refuse
+regular    b=2.0 binary pi=0.50  n_B=  110.0 e_B=   110.0 rho_e=0.0112  sd=0.00119  sd*sqrt(e)=0.0125  refuse
+regular    b=2.0 binary pi=0.20  n_B=   43.0 e_B=    43.0 rho_e=0.0112  sd=0.00206  sd*sqrt(e)=0.0135  refuse
+regular    b=2.0 binary pi=0.05  n_B=   11.0 e_B=    11.0 rho_e=0.0112  sd=0.00394  sd*sqrt(e)=0.0131  refuse
+regular    b=2.0 gauss  pi=0.50  n_B=  110.0 e_B=    48.2 rho_e=0.0049  sd=0.00130  sd*sqrt(e)=0.0090  accept
+regular    b=2.0 gauss  pi=0.20  n_B=   43.0 e_B=    19.1 rho_e=0.0049  sd=0.00185  sd*sqrt(e)=0.0081  refuse
+regular    b=2.0 gauss  pi=0.05  n_B=   11.0 e_B=     5.0 rho_e=0.0049  sd=0.00307  sd*sqrt(e)=0.0069  refuse
+regular    b=2.0 sharp  pi=0.50  n_B=  110.0 e_B=    12.5 rho_e=0.0013  sd=0.00194  sd*sqrt(e)=0.0069  refuse
+regular    b=2.0 sharp  pi=0.20  n_B=   43.0 e_B=     5.2 rho_e=0.0013  sd=0.00244  sd*sqrt(e)=0.0056  refuse
+regular    b=2.0 sharp  pi=0.05  n_B=   11.0 e_B=     1.9 rho_e=0.0013  sd=0.00296  sd*sqrt(e)=0.0040  refuse
+regular    b=2.5 binary pi=0.50  n_B=  171.0 e_B=   171.0 rho_e=0.0175  sd=0.00118  sd*sqrt(e)=0.0154  refuse
+regular    b=2.5 binary pi=0.20  n_B=   67.0 e_B=    67.0 rho_e=0.0175  sd=0.00215  sd*sqrt(e)=0.0176  refuse
+regular    b=2.5 binary pi=0.05  n_B=   17.0 e_B=    17.0 rho_e=0.0175  sd=0.00441  sd*sqrt(e)=0.0182  refuse
+regular    b=2.5 gauss  pi=0.50  n_B=  171.0 e_B=    75.0 rho_e=0.0076  sd=0.00119  sd*sqrt(e)=0.0103  accept
+regular    b=2.5 gauss  pi=0.20  n_B=   67.0 e_B=    29.5 rho_e=0.0076  sd=0.00187  sd*sqrt(e)=0.0101  refuse
+regular    b=2.5 gauss  pi=0.05  n_B=   17.0 e_B=     7.6 rho_e=0.0076  sd=0.00333  sd*sqrt(e)=0.0092  refuse
+regular    b=2.5 sharp  pi=0.50  n_B=  171.0 e_B=    19.5 rho_e=0.0020  sd=0.00164  sd*sqrt(e)=0.0073  refuse
+regular    b=2.5 sharp  pi=0.20  n_B=   67.0 e_B=     7.9 rho_e=0.0020  sd=0.00212  sd*sqrt(e)=0.0059  refuse
+regular    b=2.5 sharp  pi=0.05  n_B=   17.0 e_B=     2.4 rho_e=0.0020  sd=0.00288  sd*sqrt(e)=0.0045  refuse
+{
+ "cells": 81,
+ "c_median": 0.011717838816917231,
+ "c_min": 0.0038257115074492383,
+ "c_max": 0.049554577501871255,
+ "ratio": 12.953035639352576,
+ "sd_at_30": 0.002139374881745072,
+ "accepted": 10,
+ "sd_accepted_max": 0.0057534876215358305,
+ "sd_refused_min": 0.0011172520938740411
+}

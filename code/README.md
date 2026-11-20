@@ -1,8 +1,13 @@
 # EduCEQ-Toolkit
 
 A Python framework for co-enrichment structure diagnosis with runtime
-decidability contracts. **Version 1.1.0**, MIT licence, dependencies: `numpy`
+decidability contracts. **Version 1.2.1**, MIT licence, dependencies: `numpy`
 and `scipy` only.
+
+Repository: <https://github.com/WuxbPy/EduCEQ-Toolkit>. This file describes tag
+`v1.2.1`, released on 20 November 2026. The changes since 1.2.0 are listed under
+*Changes in 1.2.1* below, and those of 1.2.0 since 1.1.0 under *Migration from
+1.1.0*.
 
 The toolkit estimates the co-enrichment quotient (CEQ), an exact first- and
 second-order decomposition of it, and conditional permutation inference. Its
@@ -17,6 +22,13 @@ suppresses it.
 ```bash
 pip install numpy scipy
 pip install -e .          # optional, editable install
+```
+
+Or straight from the tag, without cloning (the package sits in the `code/`
+subdirectory of the repository):
+
+```bash
+pip install "educeq @ git+https://github.com/WuxbPy/EduCEQ-Toolkit@v1.2.1#subdirectory=code"
 ```
 
 `educeq` is pure Python and needs no compilation; adding this directory to
@@ -56,7 +68,7 @@ bandwidth, another label vector or other thresholds is rejected with
 
 The criteria are stated on the effective sample size, not on a count of non-zero
 weights: `diagnostics.support()` reports the raw count `n_B`, the weighted sum
-`S_B` and the effective size `e_B` side by side, and Table 11 of the paper shows that
+`S_B` and the effective size `e_B` side by side, and Table 14 of the paper shows that
 four weight profiles with an identical count differ by a factor of 3.3 in the
 standard deviation of the estimate.
 
@@ -74,14 +86,86 @@ standard deviation of the estimate.
 ## Tests
 
 ```bash
-python -m pytest tests -q        # 14 cases, 49 checks
+python -m pytest tests -q        # 29 cases, 67 checks
 ```
+
+`tests/test_educeq.py` holds fourteen cases written as named checks; it also runs
+standalone, with `python tests/test_educeq.py`, and prints one line per check.
+`tests/test_properties.py` holds fifteen cases, six of which are property based and
+need `hypothesis`; each generated case is run over 100 examples. Nine are boundary
+cases: an empty neighbourhood, a single category, one object, a target of 2,999
+against 3,000, an effective size of exactly 30 with a coverage of exactly 1 per
+cent and one neighbour more, duplicate coordinates, a target category with no
+objects, and an estimator called without a verdict.
 
 ## Reproducing the paper
 
 `REPRODUCING.md` maps every table of the paper to a script, a command line and a
 seed. `make all` runs the test suite and every evaluation script and writes the
-console logs to `../results/`.
+console logs to `../results/`. The table below lists the scripts one by one.
+
+| Script | What it reproduces |
+|---|---|
+| `examples/quickstart.py` | the minimal working example of §3.4 |
+| `examples/us_panel.py` | the College Scorecard panel of §5.2 |
+| `evaluation/support_sensitivity.py` | Table 7, the bandwidth sweep on that panel |
+| `evaluation/second_panel.py` | Table 8, the crime panel of §5.3 (needs `EDUCEQ_CRIME`) |
+| `evaluation/accept_reject.py` | Tables 9 and 10, controlled acceptance and rejection |
+| `evaluation/decomposition_attribution.py` | Table 11, which term carries which mechanism |
+| `evaluation/threshold_sensitivity.py` | Table 12, the 81-cell sensitivity grid |
+| `calibration.py` | Table 13, Monte Carlo standard deviation against effective size |
+| `evaluation/weight_heterogeneity.py` | Table 14, four profiles at a fixed raw support |
+| `evaluation/pipeline_e2e.py` | Table 15, the five stages on three datasets |
+| `attenuation.py` | Table 16, attenuation against analytic population values |
+| `evaluation/inference_dependence.py` | Table 17, size and false discovery rate under dependence |
+| `evaluation/benchmarks.py` | Table 19, time and peak memory by object count |
+| `evaluation/sfdep_parity.py` | §5.6, agreement with the published quotient, and the two normalisation conventions |
+| `demo.py` | the worked examples of §§5.4 and 5.7, on synthetic data |
+
+## Changes in 1.2.1
+
+Release 1.2.1 changes no library code. It corrects one reproduction script and
+adds a second case to another, and it is the version described in the revised
+manuscript.
+
+* `evaluation/weight_heterogeneity.py` (Table 14) now reads the raw support, the
+  weighted support and the effective size from `diagnostics.support`, the
+  function the contract calls. The previous version computed the effective size
+  over every non-zero entry of the row, including neighbours of the other
+  category, and so reported for the binary profile an effective size of about
+  121, the whole-row neighbour count, against a raw support of 60; the effective
+  size of the target-category support, which is the quantity the checker reads
+  and which cannot exceed the raw support, is 60. The script now asserts
+  `e <= n` on every profile and prints the whole-row value beside the
+  target-pair value so that the two aggregations are distinguishable in the
+  output. The standard deviations of the estimate are unchanged, because they do
+  not depend on the support measures; the effective-size column and the derived
+  product `sd * sqrt(e)` are corrected.
+* `evaluation/sfdep_parity.py` (§5.6) now reports two neighbourhood designs
+  rather than one: the constant-row-total design of the 80-nearest-neighbour
+  list, where the estimator and the published quotient agree to machine
+  precision, and a distance band with rows of unequal total, where the pooled
+  form of Equation (1) and the subject-averaged form of the published definition
+  separate, together with the row-standardised weights that recover the
+  published values exactly. The point estimate itself, and every other table, is
+  unaffected.
+
+Both changes are confined to the evaluation scripts, to the results they write
+and to the documentation. The public API, the test suite (twenty-nine cases) and
+every number outside Table 14 are those of 1.2.0.
+
+## Migration from 1.1.0
+
+* `educeq.inference` now implements both false discovery procedures. `fdr` is
+  Benjamini-Hochberg and `fdr_by` is Benjamini-Yekutieli; the default remains
+  Benjamini-Hochberg. Table 5 had described both since 1.0.0 while the module
+  implemented one, and the table is now the description of the code.
+* The weight matrix no longer drops a pair at zero distance. `build_weights` used
+  to exclude coincident objects from one another, contradicting the weight the
+  kernel assigns at distance zero; such a pair now carries that weight. The change
+  is visible only on data with duplicate coordinates — 18 shared coordinates among
+  4,785 objects in the U.S. sample, 10,152 distinct locations behind 81,959
+  offences in the crime panel — and it changes the numbers of §5.3 only.
 
 ## Migration from 1.0.0
 
@@ -109,9 +193,9 @@ If you use the software, please cite the paper:
 
 > Wu, J.; Li, F.; He, W.; Wu, X. EduCEQ-Toolkit: A Python Framework for
 > Co-Enrichment Structure Diagnosis with Runtime Decidability Contracts.
-> *Software* (MDPI), 2026, submitted (manuscript ID software-4700273).
+> *Software* (MDPI), 2026, under review (manuscript ID software-4700273).
 
-If you need to point at the code itself, cite the release tag `v1.1.0`.
+If you need to point at the code itself, cite the release tag `v1.2.1`.
 
 ## Language
 

@@ -54,7 +54,7 @@ empirical validation is claimed for them here.
 """
 from . import kernels, estimator, inference, diagnostics, validity, contract
 
-__version__ = "1.1.0"
+__version__ = "1.2.1"
 
 __all__ = ["kernels", "estimator", "inference", "diagnostics", "validity",
            "contract", "__version__"]

@@ -103,7 +103,7 @@ def main():
     else:
         print("  no bandwidth in 50-500 km satisfies both criteria: the feasible interval is empty.")
         print("  the tool declines to estimate on real public data, which is the behaviour described in Section 4.")
-    print("  note: this is insufficient data size, not an insensitive measure; Section 5.3 separates the two.")
+    print("  note: this is insufficient data size, not an insensitive measure; Section 5.4 separates the two.")
 
     # ---- the convention used in the paper: size of the largest category ----
     cnt = np.bincount(types, minlength=3)

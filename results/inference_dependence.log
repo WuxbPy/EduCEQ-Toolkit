@@ -1,0 +1,30 @@
+size rep 50: {'global': np.float64(1.0), 'conditional_2km': np.float64(1.0), 'conditional_1km': np.float64(0.94), 'conditional_0.5km': np.float64(0.48)}
+size rep 100: {'global': np.float64(1.0), 'conditional_2km': np.float64(1.0), 'conditional_1km': np.float64(0.94), 'conditional_0.5km': np.float64(0.49)}
+size rep 150: {'global': np.float64(1.0), 'conditional_2km': np.float64(1.0), 'conditional_1km': np.float64(0.953), 'conditional_0.5km': np.float64(0.473)}
+size rep 200: {'global': np.float64(1.0), 'conditional_2km': np.float64(1.0), 'conditional_1km': np.float64(0.955), 'conditional_0.5km': np.float64(0.465)}
+exact strata (quadrants): {'global': np.float64(1.0), 'conditional_quadrant': np.float64(0.02)}
+fdr rep 25: BH 0.047 BY 0.020
+fdr rep 50: BH 0.023 BY 0.010
+fdr rep 75: BH 0.026 BY 0.007
+fdr rep 100: BH 0.019 BY 0.005
+{
+ "n": 4000,
+ "bandwidth": 0.6,
+ "n_perm": 49,
+ "reps": 200,
+ "alpha": 0.05,
+ "size": {
+  "global": 1.0,
+  "conditional_2km": 1.0,
+  "conditional_1km": 0.955,
+  "conditional_0.5km": 0.465
+ },
+ "size_exact_strata": {
+  "global": 1.0,
+  "conditional_quadrant": 0.02
+ },
+ "fdr_bh": 0.019166666666666665,
+ "fdr_by": 0.005,
+ "power_bh": 0.05,
+ "power_by": 0.026666666666666665
+}

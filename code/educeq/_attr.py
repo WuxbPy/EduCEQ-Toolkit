@@ -110,7 +110,7 @@ def support_matrices(W, types, K=None):
         effective size    e_AB = median over i in A of (sum w)^2 / sum w^2
 
     Only the third is the scale on which the variance of the ratio depends
-    (Section 4.2 and Table 11). The first two are reported because they are what
+    (Section 4.2 and Table 14). The first two are reported because they are what
     users see when they think in neighbours, and because the weight sum is what
     earlier versions of this function returned; keeping all three visible is what
     lets a reader see where the three differ.
@@ -160,7 +160,7 @@ def support_matrices(W, types, K=None):
                 rho_raw=float(np.median(tot_raw)) / n,
                 rho_weighted=float(np.median(tot_S)) / n,
                 rho_ess=float(np.median(tot_e)) / n,
-                concentration=float(np.nanmedian(conc)))
+                concentration=float(np.nanmedian(conc)) if np.isfinite(conc).any() else 0.0)
 
 
 def neighbour_diagnostics(W, types, K=None):

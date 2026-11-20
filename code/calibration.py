@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Calibration of the effective-size threshold (Table 10 of the paper).
+"""Calibration of the effective-size threshold (Table 13 of the paper).
 
 For each object count N, independent two-category patterns are drawn in a square
 domain and the second-order term is estimated. The script reports three support
@@ -49,7 +49,7 @@ def main():
     ap.add_argument("--reps", type=int, default=200)
     args = ap.parse_args()
 
-    print("Calibration of the effective-size threshold (Table 10)")
+    print("Calibration of the effective-size threshold (Table 13)")
     print("bandwidth b = %.1f km, domain = %.0f x %.0f km, replicates R = %d, seed = %d"
           % (BANDWIDTH, DOMAIN, DOMAIN, args.reps, SEED))
     print()

@@ -1,0 +1,11 @@
+N=  1000  nnz=    36598  build=  0.00s  check=  0.00s  ceq= 0.00s  perm99=  0.05s  peak=    5.4 MB
+N=  3000  nnz=   114396  build=  0.01s  check=  0.00s  ceq= 0.00s  perm99=  0.12s  peak=    7.3 MB
+N= 10000  nnz=   395998  build=  0.03s  check=  0.01s  ceq= 0.00s  perm99=  0.38s  peak=   37.9 MB
+N= 30000  nnz=  1198824  build=  0.12s  check=  0.05s  ceq= 0.02s  perm99=  1.33s  peak=  114.0 MB
+N=100000  nnz=  4031986  build=  0.41s  check=  0.21s  ceq= 0.07s  perm99=  6.29s  peak=  365.0 MB
+dense  N=  1000     0.04s  peak=   29.7 MB
+dense  N=  2000     0.18s  peak=   67.5 MB
+dense  N=  4000     0.74s  peak=  384.0 MB
+knn    N=  1000     0.00s  peak=    0.1 MB
+knn    N= 10000     0.02s  peak=    0.0 MB
+dense cost per object grows as N: 17.9x from 1e3 to 4e3

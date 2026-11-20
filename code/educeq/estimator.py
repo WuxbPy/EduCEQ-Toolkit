@@ -76,7 +76,7 @@ def ceq_first_order(coords, types, bandwidth, grid_n=50, groups=None, bounds=Non
     This operates on intermediate quantities (coordinates and labels) and returns
     a term of the decomposition rather than a stand-alone estimate of association,
     so it does not require a verdict; passing its output to a table without the
-    second-order term would be a misuse described in Section 5.7.
+    second-order term would be a misuse described in Section 5.10.
     """
     types = np.asarray(types)
     K = int(types.max()) + 1
@@ -94,7 +94,7 @@ def _decompose_unchecked(W, coords, types, bandwidth, grid_n=50, groups=None):
     """Arithmetic of the decomposition with no verdict. Private on purpose.
 
     Used by the tests of the identities and by the counterfactual experiment of
-    Section 5.3, which has to estimate in a regime the contract refuses in order
+    Section 5.4, which has to estimate in a regime the contract refuses in order
     to show what the refusal buys. Anything else that calls this has stepped
     outside the contract and the paper says so.
     """

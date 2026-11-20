@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Parity with the published colocation-quotient definition (Section 5.5).
+"""Parity with the published colocation-quotient definition (Section 5.6).
 
 Why this script exists
 ----------------------
@@ -12,11 +12,42 @@ global share.
 
 This script reimplements that definition from the published formula, without
 using the package, and compares it with estimator.ceq_matrix driven by a binary
-kernel built from the same neighbour list. Agreement at machine precision means
-the present estimator reduces to the standard colocation quotient in the special
-case that sfdep implements; the difference between the two tools therefore lies in
-the weighting, the decomposition and the contract, which is what Section 1.3 and
-Table 1 now say.
+kernel built from the same neighbour list.
+
+Two neighbourhood designs, and why both (revision 3)
+----------------------------------------------------
+The two estimators normalise inside each subject -- the local share of the target
+category is formed from the row, so a subject with a large total weight does not
+contribute a large numerator -- and they differ only in how subjects are
+combined. The published quotient averages the per-subject shares with equal
+weight:
+
+    CLQ_AB = (1/m_A) sum_{i in A} ( sum_{j in N(i), t_j = B} w_ij
+                                    / sum_{j in N(i)} w_ij ) / p_B
+
+whereas Equation (1) of the paper is a ratio of sums, which pools subjects in
+proportion to the total weight of their row:
+
+    CEQ_AB = sum_{i in A} sum_{j in N(i), t_j = B} w_ij
+             / ( p_B * sum_{i in A} sum_{j in N(i)} w_ij ).
+
+The two are the same expression when every row has the same total weight, and
+they are not otherwise. The script therefore reports both designs:
+
+  (a) an 80-nearest-neighbour list, whose rows all sum to 80: the classical
+      configuration, where the agreement is expected to be at machine precision;
+  (b) a 4.5 km distance band on the same pattern, whose row totals range from
+      about 30 to about 290: the configuration in which the two conventions
+      separate, together with the same comparison after row-standardising the
+      weights, which recovers the published quotient exactly.
+
+Reading (b) matters for the interpretation of (a): agreement at 2.2e-16 there is
+an algebraic identity evaluated in a different order of summation, not an
+independent numerical validation. The estimate of the present estimator is
+homogeneous of degree zero in a common rescaling of every weight (the property
+test asserts this), but a row-specific rescaling moves the row's share of the
+pooled ratio; row-standardising the weights removes the difference and makes the
+two definitions coincide for any neighbour list.
 
 R could not be run in the review environment, so this is a reimplementation of the
 definition rather than a call into sfdep; the script prints the definition it
@@ -25,6 +56,7 @@ evaluates so that the comparison can be checked line by line.
     cd code && python evaluation/sfdep_parity.py
 
 Output: printed comparison + results/sfdep_parity.csv
+        + results/sfdep_parity_normalisation.csv
 """
 import os
 import sys
@@ -39,9 +71,12 @@ from educeq import contract, diagnostics, estimator   # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(os.path.dirname(ROOT), "results", "sfdep_parity.csv")
+OUT_NORM = os.path.join(os.path.dirname(ROOT), "results",
+                        "sfdep_parity_normalisation.csv")
 
 N = 12000
 K = 80                 # neighbours per subject, above the effective-size floor
+BAND = 4.5             # km, the varying-row-total design of block (b)
 SEED = 20261109
 
 
@@ -64,7 +99,27 @@ def neighbour_list(coords, k=K):
     return idx[:, 1:]
 
 
-def clq_reference(coords, types, nb):
+def knn_weights(nb, n):
+    rows = np.repeat(np.arange(n), nb.shape[1])
+    W = csr_matrix((np.ones(len(rows)), (rows, nb.ravel())), shape=(n, n))
+    W.setdiag(0.0)
+    W.eliminate_zeros()
+    return W
+
+
+def band_weights(coords, radius):
+    """Binary distance-band weights; rows differ in the number of neighbours."""
+    tree = cKDTree(coords)
+    d = tree.sparse_distance_matrix(tree, radius, output_type="coo_matrix")
+    n = len(coords)
+    W = csr_matrix((np.ones(d.nnz), (d.row, d.col)), shape=(n, n))
+    W.setdiag(0.0)
+    W.eliminate_zeros()
+    W.data[:] = 1.0
+    return W
+
+
+def clq_from_neighbours(types, nb):
     """Leslie and Kronenfeld's quotient, written from the definition.
 
     For source category A and target category B:
@@ -72,9 +127,8 @@ def clq_reference(coords, types, nb):
         CLQ_AB = [ sum_{i in A} (1/k_i) sum_{j in N(i)} w_ij * 1(t_j = B) ]
                  / [ m_A * p_B ]
 
-    with w_ij = 1 for j in N(i) (the row standardisation cancels because every
-    subject has the same number of neighbours here), m_A the number of subjects of
-    type A and p_B the global share of B.
+    with w_ij = 1 for j in N(i). This is the unweighted average, over subjects of
+    type A, of the within-neighbourhood share of B, divided by the global share.
     """
     n = len(types)
     p = np.bincount(types, minlength=2) / n
@@ -87,16 +141,31 @@ def clq_reference(coords, types, nb):
     return share / p[None, :], p
 
 
+def clq_from_weights(types, W):
+    """The same quotient for a weight matrix with rows of unequal total.
+
+    Row standardisation is applied explicitly, one row at a time, and the
+    per-subject shares are then averaged with equal weight. Subjects with an
+    empty row carry no share and are dropped, as sfdep drops them.
+    """
+    n = len(types)
+    p = np.bincount(types, minlength=2) / n
+    tot = np.asarray(W.sum(1)).ravel()
+    keep = tot > 0
+    onehot = csr_matrix((np.ones(n), (np.arange(n), types)), shape=(n, 2))
+    num = np.asarray((W @ onehot).todense())
+    share = np.zeros((2, 2))
+    for A in (0, 1):
+        idx = np.flatnonzero((types == A) & keep)
+        share[A] = (num[idx] / tot[idx][:, None]).mean(0)
+    return share / p[None, :], p, int((~keep).sum())
+
+
 def main():
     coords, types = data()
     nb = neighbour_list(coords)
-    ref, p = clq_reference(coords, types, nb)
-
-    rows = np.repeat(np.arange(len(types)), K)
-    cols = nb.ravel()
-    W = csr_matrix((np.ones(len(rows)), (rows, cols)), shape=(len(types), len(types)))
-    W.setdiag(0.0)
-    W.eliminate_zeros()
+    W = knn_weights(nb, len(types))
+    ref, p = clq_from_neighbours(types, nb)
 
     dec = diagnostics.check(W, types, target=0, n_total=len(types))
     got = estimator.ceq_matrix(W, types, contract=dec)
@@ -106,6 +175,7 @@ def main():
     print("global shares p = [%.4f, %.4f] ; verdict decidable = %s"
           % (p[0], p[1], dec.decidable))
     print()
+    print("(a) 80-nearest-neighbour list, every row sums to 80")
     print("%-12s %18s %18s %12s" % ("pair", "reference (formula)", "ceq_matrix", "abs diff"))
     print("-" * 64)
     worst = 0.0
@@ -118,16 +188,65 @@ def main():
                   % ("%d -> %d" % (A, B), ref[A, B], got[A, B], d))
             out.append((A, B, ref[A, B], got[A, B], d))
     print("\nlargest absolute difference: %.3e" % worst)
-    print("The two agree to machine precision, so the present estimator reduces to")
-    print("the standard colocation quotient when the weight is a binary neighbour")
-    print("list. The difference from sfdep lies in arbitrary weights, in the")
-    print("decomposition, and in the contract, not in the point estimate.")
+    print("Every row of this design carries the same total weight, 80, so the")
+    print("pooled form of Equation (1) and the subject-averaged form of the")
+    print("published definition are the same expression; the residual is the order")
+    print("of the floating-point summation.")
 
     with open(OUT, "w", encoding="utf8") as fh:
         fh.write("source,target,reference,ceq_matrix,abs_diff\n")
         for r in out:
             fh.write("%d,%d,%.12f,%.12f,%.3e\n" % r)
-    print("\nwritten:", OUT)
+
+    # (b) the varying-row-total design
+    Wb = band_weights(coords, BAND)
+    tot = np.asarray(Wb.sum(1)).ravel()
+    keep = tot > 0
+    decb = diagnostics.check(Wb, types, target=0, n_total=len(types))
+    refb, _, dropped = clq_from_weights(types, Wb)
+    gotb = estimator.ceq_matrix(Wb, types, contract=decb)
+
+    # row-standardised weights: recovers the published convention
+    Wn = Wb.multiply(1.0 / np.maximum(tot, 1e-12)[:, None]).tocsr()
+    Wn.eliminate_zeros()
+    decn = diagnostics.check(Wn, types, target=0, n_total=len(types))
+    gotn = estimator.ceq_matrix(Wn, types, contract=decn)
+
+    print()
+    print("(b) %.1f km distance band, rows of unequal total" % BAND)
+    print("row totals: min %d, median %d, max %d over %d subjects with a non-empty"
+          % (tot[keep].min(), np.median(tot[keep]), tot[keep].max(), keep.sum()))
+    print("neighbourhood (%d subjects have none and are dropped, as sfdep does);"
+          % dropped)
+    print("decidable = %s" % decb.decidable)
+    print()
+    print("%-8s %16s %16s %12s %16s %12s"
+          % ("pair", "published", "ceq raw W", "rel.diff",
+             "ceq row-std W", "abs diff"))
+    print("-" * 88)
+    rows = []
+    for A in (0, 1):
+        for B in (0, 1):
+            rel = (gotb[A, B] - refb[A, B]) / refb[A, B]
+            d = abs(gotn[A, B] - refb[A, B])
+            print("%-8s %16.6f %16.6f %11.2f%% %16.6f %12.3e"
+                  % ("%d -> %d" % (A, B), refb[A, B], gotb[A, B], 100 * rel,
+                     gotn[A, B], d))
+            rows.append((A, B, refb[A, B], gotb[A, B], rel, gotn[A, B], d))
+    print()
+    print("With rows of unequal total the two conventions separate: the pooled form")
+    print("weights a subject by the total weight of its row, the published form")
+    print("weights every subject equally. Row-standardising the weights before the")
+    print("call removes the difference and reproduces the published quotient to")
+    print("machine precision in every pair.")
+
+    with open(OUT_NORM, "w", encoding="utf8") as fh:
+        fh.write("source,target,published,ceq_raw,rel_diff,ceq_row_standardised,"
+                 "abs_diff_row_standardised\n")
+        for r in rows:
+            fh.write("%d,%d,%.12f,%.12f,%.6f,%.12f,%.3e\n" % r)
+    print("\nwritten: %s" % OUT)
+    print("written: %s" % OUT_NORM)
 
 
 if __name__ == "__main__":

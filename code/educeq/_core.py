@@ -39,11 +39,20 @@ def standardize(X):
 
 def build_weights(coords, b, cut=3.0):
     """Return the sparse weight matrix W: a Gaussian kernel truncated at cut*b,
-    with no diagonal."""
+    with no diagonal.
+
+    Objects at identical coordinates are neighbours of one another with weight
+    one, which is what the kernel gives at zero distance. Only the diagonal is
+    removed, since an object is not its own neighbour. Version 1.1.0 excluded
+    every zero-distance pair, which silently dropped co-located objects: on a
+    panel of recorded crime, where the published coordinates are snapped to a
+    small set of locations, that removed most of the fine-scale structure
+    (Section 5.3).
+    """
     tree = cKDTree(coords)
     D = tree.sparse_distance_matrix(tree, max_distance=cut * b, output_type='coo_matrix')
     r, c, d = D.row, D.col, D.data
-    mask = (r != c) & (d > 0)
+    mask = (r != c)
     r, c, d = r[mask], c[mask], d[mask]
     w = np.exp(-(d ** 2) / (2 * b ** 2))
     return sparse.csr_matrix((w, (r, c)), shape=(len(coords), len(coords)))
@@ -225,6 +234,7 @@ def permutation_test(W, types, labels, n_perm=999, seed=0, block=None):
 
 
 def bh_fdr(p, alpha=0.05):
+    """Benjamini-Hochberg step-up on the p values; returns (q values, rejections)."""
     p = np.asarray(p, float)
     n = len(p)
     order = np.argsort(p)
@@ -234,5 +244,28 @@ def bh_fdr(p, alpha=0.05):
     k = np.max(np.where(sig)[0]) + 1 if sig.any() else 0
     q = np.empty(n)
     q[order] = np.minimum.accumulate((ranked * n / np.arange(1, n + 1))[::-1])[::-1]
+    q = np.clip(q, 0, 1)
+    return q, k
+
+
+def by_fdr(p, alpha=0.05):
+    """Benjamini-Yekutieli step-up, valid under arbitrary dependence.
+
+    The only change with respect to Benjamini-Hochberg is the harmonic factor
+    H_n = sum_{i=1..n} 1/i, which multiplies the threshold. Under independence
+    the two coincide asymptotically; under arbitrary dependence BH does not
+    control the false discovery rate and BY does. Section 5.8 of the paper
+    reports both under spatially dependent tests.
+    """
+    p = np.asarray(p, float)
+    n = len(p)
+    h = float(np.sum(1.0 / np.arange(1, n + 1)))
+    order = np.argsort(p)
+    ranked = p[order]
+    scale = n * h / np.arange(1, n + 1)
+    sig = ranked * scale <= alpha
+    k = np.max(np.where(sig)[0]) + 1 if sig.any() else 0
+    q = np.empty(n)
+    q[order] = np.minimum.accumulate((ranked * scale)[::-1])[::-1]
     q = np.clip(q, 0, 1)
     return q, k

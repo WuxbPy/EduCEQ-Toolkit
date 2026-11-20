@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Attenuation with analytic population values (Table 13 of the paper).
+"""Attenuation with analytic population values (Table 16 of the paper).
 
 Why this script exists
 ----------------------
@@ -96,7 +96,7 @@ def main():
     ap.add_argument("--reps", type=int, default=1000)
     args = ap.parse_args()
 
-    print("Attenuation with analytic population values (Table 13)")
+    print("Attenuation with analytic population values (Table 16)")
     print("n = %d per replicate, R = %d, seed = %d\n" % (N, args.reps, SEED))
     head = "%-22s %9s %10s %10s %10s %9s" % (
         "design", "analytic", "recovered", "sd", "bias", "r_base")
@@ -123,7 +123,7 @@ def main():
     print("  recovered = %.4f ; gap = %.4f against a Monte Carlo s.e. of %.4f,"
           % (rows[0][2], rows[0][2] - pred, rows[0][3] / np.sqrt(args.reps)))
     print("  so the departure from 1.0000 is definitional, not simulation noise.")
-    print("  Section 5.6 of the paper reports it rather than hiding it.")
+    print("  Section 5.7 of the paper reports it rather than hiding it.")
 
     with open(OUT, "w", encoding="utf8") as fh:
         fh.write("design,analytic,recovered_mean,recovered_sd,bias,replicates,seed,n,r_base_pop\n")

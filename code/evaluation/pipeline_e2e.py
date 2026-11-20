@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""End-to-end pipeline on three datasets (Table 12).
+"""End-to-end pipeline on three datasets (Table 15).
 
 Why this script exists
 ----------------------
@@ -65,7 +65,7 @@ def datasets():
 
 
 def main():
-    print("End-to-end pipeline (Table 12)")
+    print("End-to-end pipeline (Table 15)")
     print("Five stages of Section 3.1 on three datasets, seed = %d\n" % SEED)
     head = "%-8s %-22s %-34s %s"
     print(head % ("dataset", "stage", "expected", "observed"))

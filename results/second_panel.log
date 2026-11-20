@@ -1,0 +1,24 @@
+N = 81959, categories = 14, largest = Violence and sexual offences (28804)
+b=0.050  n_B=  16.0  S_B=    8.4  e_B=   10.1  rho_e=0.00038  refuse ['step2:ess']
+b=0.075  n_B=  31.0  S_B=   11.8  e_B=   15.7  rho_e=0.00062  refuse ['step2:ess']
+b=0.100  n_B=  49.0  S_B=   16.2  e_B=   23.9  rho_e=0.00092  refuse ['step2:ess']
+b=0.125  n_B=  71.0  S_B=   21.8  e_B=   34.3  rho_e=0.00128  accept
+b=0.150  n_B=  95.0  S_B=   28.2  e_B=   45.4  rho_e=0.00169  accept
+b=0.200  n_B= 151.0  S_B=   43.4  e_B=   73.1  rho_e=0.00270  accept
+b=0.250  n_B= 213.0  S_B=   61.9  e_B=  104.9  rho_e=0.00383  accept
+b=0.300  n_B= 280.0  S_B=   82.8  e_B=  139.8  rho_e=0.00507  accept
+b=0.350  n_B= 354.0  S_B=  104.2  e_B=  178.1  rho_e=0.00646  accept
+b=0.400  n_B= 433.0  S_B=  128.0  e_B=  218.8  rho_e=0.00804  accept
+b=0.450  n_B= 521.0  S_B=  153.6  e_B=  258.5  rho_e=0.00970  accept
+b=0.470  n_B= 553.0  S_B=  164.2  e_B=  275.3  rho_e=0.01044  refuse ['step3:rho']
+working bandwidth 0.250 km, verdict decidable = True
+identity_ok = True
+pairs tested 91, BH rejections 87, BY rejections 84
+  Bicycle theft                -> Theft from the person        CEQ=3.490  C1=3.484  C2=1.002  q_BH=0.00542
+  Shoplifting                  -> Theft from the person        CEQ=2.747  C1=2.711  C2=1.013  q_BH=0.00542
+  Other theft                  -> Theft from the person        CEQ=2.468  C1=2.477  C2=0.996  q_BH=0.00542
+  Robbery                      -> Theft from the person        CEQ=2.347  C1=2.306  C2=1.018  q_BH=0.00542
+  Public order                 -> Theft from the person        CEQ=2.297  C1=2.287  C2=1.005  q_BH=0.00542
+  Bicycle theft                -> Shoplifting                  CEQ=2.067  C1=2.021  C2=1.023  q_BH=0.00542
+Spearman against working bandwidth: {0.15: 0.9907787864309603, 0.4: 0.9955406911928651}
+elapsed 228.5 s

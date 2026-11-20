@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """educeq.inference — significance testing and multiple comparison (module three)
 
-This module corresponds to Sections 2.4 and 2.5 of the paper.
+This module corresponds to Section 2.3 of the paper.
 
 **The released code provides one channel: the permutation test, with support for
 stratified (conditional) permutation.**
@@ -9,12 +9,13 @@ stratified (conditional) permutation.**
 Stratified permutation is not optional. When the kernel uses attribute
 information, permuting labels globally destroys the existing relation between
 labelling and attributes, which pushes the actual type-one error far above the
-nominal level (Section 2.4 of the paper reports about 0.30 against a nominal
-0.05). Stratified permutation permutes independently within each conditioning
+nominal level: Section 2.3 of the paper reports 0.29 against a nominal 0.05
+for the attribute configuration, and 1.00 for a composition design in which the
+permutation is unconditional. Section 5.8 measures both. Stratified permutation permutes independently within each conditioning
 stratum, preserves the joint margins and breaks only the association of
 interest.
 
-Section 2.4 also describes an asymptotic-null channel. That channel is **not
+Section 2.3 also describes an asymptotic-null channel. That channel is **not
 implemented in the released code**; see Section 7, Limitations. This module
 reports the number of available channels honestly through ``channel_report`` and
 never substitutes one silently for another.
@@ -26,10 +27,10 @@ uninterpretable quantity. The arithmetic is reachable without a verdict only via
 ``_permutation_unchecked``, which is private.
 """
 import numpy as np
-from ._core import permutation_test, bh_fdr
+from ._core import permutation_test, bh_fdr, by_fdr
 from .contract import require
 
-__all__ = ["permutation", "fdr", "channel_report"]
+__all__ = ["permutation", "fdr", "fdr_by", "channel_report"]
 
 
 def _permutation_unchecked(W, types, n_perm=999, seed=0, strata=None):
@@ -59,8 +60,18 @@ def permutation(W, types, *, contract=None, n_perm=999, seed=0, strata=None):
 
 def fdr(p_values, alpha=0.05):
     """Benjamini-Hochberg false discovery rate control; returns (q values, number
-    of rejections)."""
+    of rejections). Valid when the tests are independent or positively dependent;
+    use fdr_by when that cannot be assumed."""
     q, k = bh_fdr(np.asarray(p_values, float), alpha=alpha)
+    return q, int(k)
+
+
+def fdr_by(p_values, alpha=0.05):
+    """Benjamini-Yekutieli false discovery rate control; returns (q values, number
+    of rejections). Valid under arbitrary dependence among the tests, at the cost
+    of the harmonic factor in the threshold. Section 5.8 of the paper reports
+    empirical size and power of both under spatially dependent tests."""
+    q, k = by_fdr(np.asarray(p_values, float), alpha=alpha)
     return q, int(k)
 
 

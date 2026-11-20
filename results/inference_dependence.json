@@ -1,0 +1,21 @@
+{
+ "n": 4000,
+ "bandwidth": 0.6,
+ "n_perm": 49,
+ "reps": 200,
+ "alpha": 0.05,
+ "size": {
+  "global": 1.0,
+  "conditional_2km": 1.0,
+  "conditional_1km": 0.955,
+  "conditional_0.5km": 0.465
+ },
+ "size_exact_strata": {
+  "global": 1.0,
+  "conditional_quadrant": 0.02
+ },
+ "fdr_bh": 0.019166666666666665,
+ "fdr_by": 0.005,
+ "power_bh": 0.05,
+ "power_by": 0.026666666666666665
+}

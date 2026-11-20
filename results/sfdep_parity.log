@@ -2,6 +2,7 @@ Parity with the published colocation-quotient definition
 n = 12000, neighbours per subject k = 80, seed = 20261109
 global shares p = [0.5000, 0.5000] ; verdict decidable = True
 
+(a) 80-nearest-neighbour list, every row sums to 80
 pair         reference (formula)         ceq_matrix     abs diff
 ----------------------------------------------------------------
 0 -> 0           1.221491666667     1.221491666667    2.220e-16
@@ -10,9 +11,28 @@ pair         reference (formula)         ceq_matrix     abs diff
 1 -> 1           1.237104166667     1.237104166667    0.000e+00
 
 largest absolute difference: 2.220e-16
-The two agree to machine precision, so the present estimator reduces to
-the standard colocation quotient when the weight is a binary neighbour
-list. The difference from sfdep lies in arbitrary weights, in the
-decomposition, and in the contract, not in the point estimate.
+Every row of this design carries the same total weight, 80, so the
+pooled form of Equation (1) and the subject-averaged form of the
+published definition are the same expression; the residual is the order
+of the floating-point summation.
 
-written: /media/wushi/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/results/sfdep_parity.csv
+(b) 4.5 km distance band, rows of unequal total
+row totals: min 1, median 91, max 216 over 11993 subjects with a non-empty
+neighbourhood (7 subjects have none and are dropped, as sfdep does);
+decidable = True
+
+pair            published        ceq raw W     rel.diff    ceq row-std W     abs diff
+----------------------------------------------------------------------------------------
+0 -> 0           1.234303         0.981731      -20.46%         1.234303    0.000e+00
+0 -> 1           0.765697         1.018269       32.99%         0.765697    0.000e+00
+1 -> 0           0.760839         0.669734      -11.97%         0.760839    0.000e+00
+1 -> 1           1.239161         1.330266        7.35%         1.239161    2.220e-16
+
+With rows of unequal total the two conventions separate: the pooled form
+weights a subject by the total weight of its row, the published form
+weights every subject equally. Row-standardising the weights before the
+call removes the difference and reproduces the published quotient to
+machine precision in every pair.
+
+written: /media/wuxb/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/投稿包_R3/03_Supplementary/EduCEQ-Toolkit_SI/results/sfdep_parity.csv
+written: /media/wuxb/WuXB/空间统计与计量方法/Co Location Quotient/2026/时空协同区位熵/汉斯期刊/投稿/MDPI/Software/投稿包_R3/03_Supplementary/EduCEQ-Toolkit_SI/results/sfdep_parity_normalisation.csv
